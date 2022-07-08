@@ -1,0 +1,230 @@
+// Index
+@import 'reseter.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Rubik';
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400;
+    src: url('@/assets/fonts/rubik-v19-latin-regular.woff2') format('woff2'),
+      url('@/assets/fonts/rubik-v19-latin-regular.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'Rubik';
+    font-display: swap;
+    font-style: normal;
+    font-weight: 500;
+    src: url('@/assets/fonts/rubik-v19-latin-500.woff2') format('woff2'),
+      url('@/assets/fonts/rubik-v19-latin-500.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'Rubik';
+    font-display: swap;
+    font-style: normal;
+    font-weight: 700;
+    src: url('@/assets/fonts/rubik-v19-latin-700.woff2') format('woff2'),
+      url('@/assets/fonts/rubik-v19-latin-700.woff') format('woff');
+  }
+}
+
+// General
+:root {
+  --color-white: #ffffff;
+  --color-red: #ef4444;
+  --color-red-40: rgba(239, 68, 68, 0.4);
+  --color-navy: #160e33;
+  --dark-blue-0: rgba(22, 14, 51, 0);
+  --dark-blue-30: rgba(22, 14, 51, 0.3);
+}
+
+html,
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+header,
+footer {
+  flex: 0 0 auto;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a,
+button,
+input {
+  outline: transparent;
+}
+
+a {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+svg {
+  fill: currentColor;
+}
+
+::selection {
+  background-color: var(--color-red);
+  color: var(--color-white);
+}
+
+// Utility classes
+.ol-double-gradient,
+.ol-blend-darken,
+.ol-blend-overlay {
+  position: relative;
+  z-index: 0;
+}
+
+.ol-double-gradient::before,
+.ol-double-gradient::after,
+.ol-blend-darken::before,
+.ol-blend-darken::after,
+.ol-blend-overlay::before {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  content: '';
+}
+
+.ol-double-gradient {
+  &::before {
+    z-index: -1;
+    background: linear-gradient(121.69deg, var(--color-navy) 28.68%, var(--dark-blue-30) 69.08%);
+  }
+
+  &::after {
+    z-index: -2;
+    background: linear-gradient(0deg, var(--color-navy) 0%, rgba(22, 14, 51, 0) 31.25%);
+  }
+}
+
+.ol-blend-darken {
+  &::before {
+    z-index: -1;
+    background: var(--color-navy);
+    mix-blend-mode: darken;
+    opacity: 0.3;
+  }
+
+  &::after {
+    z-index: -2;
+    background: var(--color-red);
+    mix-blend-mode: darken;
+  }
+}
+
+.ol-blend-overlay {
+  &::before {
+    z-index: 1;
+    background: var(--color-red);
+    mix-blend-mode: overlay;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+}
+
+.counter-parent {
+  counter-reset: li;
+}
+
+.counter-item {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.625rem;
+    height: 2.625rem;
+    padding: 0 0.5rem;
+    background: var(--color-red);
+    border-radius: 50%;
+    font-size: 1rem;
+    color: var(--color-navy);
+    transform: translateY(-50%);
+    will-change: inherit;
+    counter-increment: li;
+    content: '0' counter(li);
+  }
+}
+
+// React Player styles
+div.react-player__preview {
+  width: 100%;
+  flex: 1 0 100%;
+  @extend .ol-blend-darken;
+}
+
+// Swiper-related styles
+.swiper {
+  margin: -3.125rem 0;
+}
+
+.swiper-wrapper {
+  padding: 3.125rem 0;
+}
+
+.swiper-slide-active.slide-shadow article {
+  box-shadow: 0 0 2.5rem var(--color-red-40);
+  transition: box-shadow 1s ease-in;
+}
+
+.swiper-pagination {
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: var(--color-red);
+}
